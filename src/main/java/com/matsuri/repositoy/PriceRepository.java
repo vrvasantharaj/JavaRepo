@@ -14,4 +14,6 @@ public interface PriceRepository {
 	List<Price> getPriceByIsin(String isinNo);
 	
     List<Price> getPriceByVendor(String vendorId);
+    
+	void removeOldPrices();
 }

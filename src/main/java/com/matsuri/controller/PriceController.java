@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,23 +22,44 @@ public class PriceController {
 	private PriceService priceService;
 
 	@PostMapping("/publishprice")
-	public void publishPrice(@RequestBody Price price) {
+	public ResponseEntity<Void> publishPrice(@RequestBody Price price) {
+		
+		try {
+			priceService.addPrice(price);
+			return new ResponseEntity<>(HttpStatus.CREATED);
+		} catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 
-		priceService.addPrice(price);
+		}
 
 	}
 
 	@GetMapping("/isin/{isinNo}")
-	public List<Price> getPriceByIsin(@PathVariable String isinNo) {
+	public ResponseEntity<List<Price>> getPriceByIsin(@PathVariable String isinNo) {
 
-		return priceService.getPriceByIsin(isinNo);
+        try {
+			List<Price> prices = priceService.getPriceByIsin(isinNo);
+
+			return new ResponseEntity<>(prices, HttpStatus.OK);
+		} catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+
+		} 
 	}
 
 	@GetMapping("/vendor/{vendorId}")
-	public List<Price> getPriceByVendor(@PathVariable String vendorId) {
+	public  ResponseEntity<List<Price>> getPriceByVendor(@PathVariable String vendorId) {
 
-		return priceService.getPriceByVendor(vendorId);
+		try {
+			List<Price> prices = priceService.getPriceByVendor(vendorId);
+			return new ResponseEntity<>(prices, HttpStatus.OK);
+
+		} catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+
+		}
 
 	}
+	
 
 }
