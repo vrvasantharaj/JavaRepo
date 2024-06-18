@@ -12,6 +12,13 @@ The in-memory caching is achieved through the Vector data structure. This has be
 
 This application follows the Repository Design Pattern. It provides a clean separation betweee business logic and data access logic which makes it easier to manage and test.
 
+**Sequence Diagram**:
+
+![SequenceDiagram](https://github.com/vrvasantharaj/matsuri-price/assets/101232744/82fa66a0-b87e-40de-88ba-4babcbf7aac3)
+
+**Class Diagram**:
+
+![ClassDiagram](https://github.com/vrvasantharaj/matsuri-price/assets/101232744/c10d63ef-c96a-425b-a37b-efa84ccd32e2)
 
 **Components**:
 
